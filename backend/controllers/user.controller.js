@@ -169,6 +169,7 @@ export const updateProfile = async (req, res) => {
     if (skills) {
       user.profile.skills = skills.split(",").map((s) => s.trim());
     }
+
     await user.save();
     const updatedUser = {
       _id: user._id,
