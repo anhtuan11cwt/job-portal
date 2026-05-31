@@ -11,19 +11,29 @@ export const register = async (req, res) => {
         success: false,
       });
     }
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({
+      $or: [{ email }, { phoneNumber }],
+    });
     if (existingUser) {
+      if (existingUser.email === email) {
+        return res.status(400).json({
+          message: "Email đã được đăng ký",
+          success: false,
+        });
+      }
       return res.status(400).json({
-        message: "Email đã được đăng ký",
+        message: "Số điện thoại đã được đăng ký",
         success: false,
       });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
+    const profilePhoto = req.file?.path || "";
     await User.create({
       email,
       fullName,
       password: hashedPassword,
       phoneNumber,
+      profile: { profilePhoto },
       role,
     });
     return res.status(201).json({
@@ -126,6 +136,31 @@ export const updateProfile = async (req, res) => {
         message: "Không tìm thấy người dùng",
         success: false,
       });
+    }
+    if (email || phoneNumber) {
+      const existingUser = await User.findOne({
+        _id: { $ne: userId },
+        $or: [
+          email ? { email } : null,
+          phoneNumber ? { phoneNumber } : null,
+        ].filter(Boolean),
+      });
+
+      if (existingUser) {
+        if (email && existingUser.email === email) {
+          return res.status(400).json({
+            message: "Email đã được đăng ký",
+            success: false,
+          });
+        }
+
+        if (phoneNumber && existingUser.phoneNumber === phoneNumber) {
+          return res.status(400).json({
+            message: "Số điện thoại đã được đăng ký",
+            success: false,
+          });
+        }
+      }
     }
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;

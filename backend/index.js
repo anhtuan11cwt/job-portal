@@ -1,14 +1,12 @@
+import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import applicationRoute from "./routes/application.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import userRoute from "./routes/user.route.js";
 import connectDB from "./utils/db.js";
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -30,6 +28,15 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
+
+// Global error handler
+app.use((err, _req, res) => {
+  console.error("Lỗi middleware:", err);
+  res.status(err.status || 500).json({
+    message: err.message || "Lỗi máy chủ",
+    success: false,
+  });
+});
 
 // Start server
 app.listen(PORT, () => {
