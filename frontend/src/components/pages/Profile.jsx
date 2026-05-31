@@ -1,7 +1,6 @@
-import { FileText, Mail, Pen, Phone } from "lucide-react";
+import { Mail, Pen, Phone } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,10 +13,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import EditProfileModal from "./EditProfileModal";
 
 const Profile = () => {
   const { user } = useSelector((store) => store.auth);
-  const [isResume] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const skills = user?.profile?.skills || [];
 
@@ -79,6 +79,7 @@ const Profile = () => {
           </div>
           <Button
             className="self-start sm:self-center"
+            onClick={() => setOpen(true)}
             size="sm"
             variant="outline"
           >
@@ -91,11 +92,21 @@ const Profile = () => {
         <div className="my-5 space-y-3">
           <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
             <Mail className="size-4 shrink-0" />
-            <span className="truncate">{user?.email}</span>
+            <a
+              className="hover:text-[#6A38C2] hover:underline"
+              href={`mailto:${user?.email}`}
+            >
+              {user?.email}
+            </a>
           </div>
           <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
             <Phone className="size-4 shrink-0" />
-            <span>{user?.phoneNumber || "Chưa cung cấp"}</span>
+            <a
+              className="hover:text-[#6A38C2] hover:underline"
+              href={`tel:${user?.phoneNumber}`}
+            >
+              {user?.phoneNumber || "Chưa cung cấp"}
+            </a>
           </div>
         </div>
 
@@ -117,25 +128,6 @@ const Profile = () => {
               <span className="text-gray-500 text-sm">Chưa có kỹ năng</span>
             )}
           </div>
-        </div>
-
-        {/* Resume */}
-        <div className="my-5">
-          <h2 className="font-semibold mb-3 text-base sm:text-lg">CV</h2>
-          {isResume ? (
-            <Link
-              className="flex items-center gap-2 text-[#6A38C2] hover:underline text-sm sm:text-base"
-              target="_blank"
-              to={user?.profile?.resume || "#"}
-            >
-              <FileText className="size-4 shrink-0" />
-              <span className="truncate">
-                {user?.profile?.resumeOriginalName || "Tải CV"}
-              </span>
-            </Link>
-          ) : (
-            <span className="text-gray-500 text-sm">Không tìm thấy CV</span>
-          )}
         </div>
       </div>
 
@@ -197,6 +189,8 @@ const Profile = () => {
           </Table>
         </div>
       </div>
+
+      <EditProfileModal open={open} setOpen={setOpen} />
     </div>
   );
 };
