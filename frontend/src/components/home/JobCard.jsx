@@ -1,0 +1,68 @@
+import { Bookmark, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import formatCurrency from "@/utils/formatCurrency";
+
+const JobCard = ({ job }) => {
+  const navigate = useNavigate();
+
+  const daysAgoFunction = (mongodbTime) => {
+    const createdAt = new Date(mongodbTime);
+    const currentTime = new Date();
+    const timeDifference = currentTime - createdAt;
+    return Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  };
+
+  return (
+    <button
+      className="p-4 sm:p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+      onClick={() => navigate(`/description/${job?._id}`)}
+      type="button"
+    >
+      <div className="flex items-center justify-between">
+        <p className="text-xs sm:text-sm text-gray-500">
+          {daysAgoFunction(job?.createdAt) === 0
+            ? "Hôm nay"
+            : `${daysAgoFunction(job?.createdAt)} ngày trước`}
+        </p>
+        <div className="rounded-full size-8 sm:size-9">
+          <Bookmark className="size-3 sm:size-4" />
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 my-3">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs sm:text-sm font-bold text-[#6A38C2]">
+          {job?.company?.name?.[0] || "C"}
+        </div>
+        <div>
+          <h3 className="font-semibold text-base sm:text-lg">
+            {job?.company?.name}
+          </h3>
+          <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-500">
+            <MapPin className="size-3" />
+            <span>{job?.location || "Việt Nam"}</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 className="font-bold text-lg sm:text-xl my-2">{job?.title}</h2>
+      <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">
+        {job?.description}
+      </p>
+
+      <div className="flex items-center gap-2 mt-4 flex-wrap">
+        <Badge className="text-[#6A38C2] font-bold bg-[#6A38C2]/10 hover:bg-[#6A38C2]/20 text-xs">
+          {job?.position} Vị trí
+        </Badge>
+        <Badge className="text-[#f83002] font-bold bg-[#f83002]/10 hover:bg-[#f83002]/20 text-xs">
+          {job?.jobType}
+        </Badge>
+        <Badge className="text-[#7209b7] font-bold bg-[#7209b7]/10 hover:bg-[#7209b7]/20 text-xs">
+          {formatCurrency(job?.salary)}
+        </Badge>
+      </div>
+    </button>
+  );
+};
+
+export default JobCard;

@@ -100,10 +100,12 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col mt-4 text-gray-600">
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <User2 />
-                    <Button variant="link">Xem hồ sơ</Button>
-                  </div>
+                  <Link to="/profile">
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <User2 />
+                      <Button variant="link">Xem hồ sơ</Button>
+                    </div>
+                  </Link>
                   <div className="flex items-center gap-2 cursor-pointer">
                     <LogOut />
                     <Button onClick={logoutHandler} variant="link">
@@ -179,9 +181,11 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-2 text-gray-600">
-                <Button className="justify-start px-0" variant="link">
-                  Xem hồ sơ
-                </Button>
+                <Link onClick={() => setIsOpen(false)} to="/profile">
+                  <Button className="justify-start px-0" variant="link">
+                    Xem hồ sơ
+                  </Button>
+                </Link>
                 <Button
                   className="justify-start px-0 text-red-500"
                   onClick={logoutHandler}
