@@ -86,8 +86,9 @@ export const updateCompany = async (req, res) => {
     if (description) updateData.description = description;
     if (website) updateData.website = website;
     if (location) updateData.location = location;
+    if (req.file?.path) updateData.logo = req.file.path;
     const company = await Company.findByIdAndUpdate(companyId, updateData, {
-      new: true,
+      returnDocument: "after",
     });
     if (!company) {
       return res.status(404).json({

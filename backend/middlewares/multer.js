@@ -10,4 +10,13 @@ const avatarStorage = new CloudinaryStorage({
   },
 });
 
+const logoStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "SunfireSensei-job-portal/company/logos",
+    transformation: [{ crop: "limit", height: 500, width: 500 }],
+  },
+});
+
 export const upload = multer({ storage: avatarStorage });
+export const logoUpload = multer({ storage: logoStorage });
