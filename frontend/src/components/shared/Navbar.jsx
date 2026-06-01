@@ -20,6 +20,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const isRecruiter = user?.role === "recruiter";
+
   const logoutHandler = async () => {
     try {
       const res = await axios.get(`${USER_API_ENDPOINT}/logout`, {
@@ -57,15 +59,28 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-12">
           <ul className="flex font-medium items-center gap-6">
-            <li>
-              <Link to="/">Trang chủ</Link>
-            </li>
-            <li>
-              <Link to="/jobs">Việc làm</Link>
-            </li>
-            <li>
-              <Link to="/browse">Tìm kiếm</Link>
-            </li>
+            {isRecruiter ? (
+              <>
+                <li>
+                  <Link to="/admin/companies">Công ty</Link>
+                </li>
+                <li>
+                  <Link to="/admin/jobs">Việc làm</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/">Trang chủ</Link>
+                </li>
+                <li>
+                  <Link to="/jobs">Việc làm</Link>
+                </li>
+                <li>
+                  <Link to="/browse">Tìm kiếm</Link>
+                </li>
+              </>
+            )}
           </ul>
 
           {!user ? (
@@ -111,12 +126,14 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col mt-4 text-gray-600">
-                  <Link to="/profile">
-                    <div className="flex items-center gap-2 cursor-pointer">
-                      <User2 />
-                      <Button variant="link">Xem hồ sơ</Button>
-                    </div>
-                  </Link>
+                  {!isRecruiter && (
+                    <Link to="/profile">
+                      <div className="flex items-center gap-2 cursor-pointer">
+                        <User2 />
+                        <Button variant="link">Xem hồ sơ</Button>
+                      </div>
+                    </Link>
+                  )}
                   <div className="flex items-center gap-2 cursor-pointer">
                     <LogOut />
                     <Button onClick={logoutHandler} variant="link">
@@ -145,21 +162,38 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-white border-b border-gray-200 px-4 py-4">
           <ul className="flex flex-col font-medium gap-4 mb-4">
-            <li>
-              <Link onClick={() => setIsOpen(false)} to="/">
-                Trang chủ
-              </Link>
-            </li>
-            <li>
-              <Link onClick={() => setIsOpen(false)} to="/jobs">
-                Việc làm
-              </Link>
-            </li>
-            <li>
-              <Link onClick={() => setIsOpen(false)} to="/browse">
-                Tìm kiếm
-              </Link>
-            </li>
+            {isRecruiter ? (
+              <>
+                <li>
+                  <Link onClick={() => setIsOpen(false)} to="/admin/companies">
+                    Công ty
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={() => setIsOpen(false)} to="/admin/jobs">
+                    Việc làm
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link onClick={() => setIsOpen(false)} to="/">
+                    Trang chủ
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={() => setIsOpen(false)} to="/jobs">
+                    Việc làm
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={() => setIsOpen(false)} to="/browse">
+                    Tìm kiếm
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           {!user ? (
@@ -192,11 +226,13 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-2 text-gray-600">
-                <Link onClick={() => setIsOpen(false)} to="/profile">
-                  <Button className="justify-start px-0" variant="link">
-                    Xem hồ sơ
-                  </Button>
-                </Link>
+                {!isRecruiter && (
+                  <Link onClick={() => setIsOpen(false)} to="/profile">
+                    <Button className="justify-start px-0" variant="link">
+                      Xem hồ sơ
+                    </Button>
+                  </Link>
+                )}
                 <Button
                   className="justify-start px-0 text-red-500"
                   onClick={logoutHandler}

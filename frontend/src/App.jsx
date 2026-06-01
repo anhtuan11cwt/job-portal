@@ -13,6 +13,9 @@ const PrivacyPolicy = lazy(() => import("./components/pages/PrivacyPolicy"));
 const TermsServices = lazy(() => import("./components/pages/TermsServices"));
 const Login = lazy(() => import("./components/authentication/Login"));
 const Register = lazy(() => import("./components/authentication/Register"));
+const Companies = lazy(() => import("./components/admin/Companies"));
+const CompanyCreate = lazy(() => import("./components/admin/CompanyCreate"));
+const CompanySetup = lazy(() => import("./components/admin/CompanySetup"));
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
             <Route element={<TermsServices />} path="/terms" />
             <Route element={<Login />} path="/login" />
             <Route element={<Register />} path="/register" />
+            <Route element={<Companies />} path="/admin/companies" />
+            <Route element={<CompanyCreate />} path="/admin/companies/create" />
+            <Route element={<CompanySetup />} path="/admin/companies/:id" />
           </Routes>
         </Suspense>
       </main>
