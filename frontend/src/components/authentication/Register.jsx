@@ -12,12 +12,14 @@ import { USER_API_ENDPOINT } from "@/utils/constant";
 
 const Register = () => {
   const [input, setInput] = useState({
+    cccd: "",
     email: "",
     file: null,
     fullName: "",
     password: "",
     phone: "",
     role: "student",
+    taxCode: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
@@ -75,6 +77,8 @@ const Register = () => {
       formData.append("phoneNumber", input.phone);
       formData.append("password", input.password);
       formData.append("role", input.role);
+      formData.append("taxCode", input.taxCode);
+      formData.append("cccd", input.cccd);
       if (input.file) {
         formData.append("profilePhoto", input.file);
       }
@@ -161,6 +165,32 @@ const Register = () => {
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
+        </div>
+
+        <div className="mb-4">
+          <Label>Mã số thuế</Label>
+          <input
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={loading}
+            name="taxCode"
+            onChange={changeEventHandler}
+            placeholder="Nhập mã số thuế của bạn"
+            type="text"
+            value={input.taxCode}
+          />
+        </div>
+
+        <div className="mb-4">
+          <Label>Số CCCD</Label>
+          <input
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={loading}
+            name="cccd"
+            onChange={changeEventHandler}
+            placeholder="Nhập số căn cước công dân"
+            type="text"
+            value={input.cccd}
+          />
         </div>
 
         <div className="my-5">

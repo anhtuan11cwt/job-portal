@@ -12,6 +12,7 @@ import { USER_API_ENDPOINT } from "@/utils/constant";
 
 const Login = () => {
   const [input, setInput] = useState({
+    cccd: "",
     email: "",
     password: "",
     role: "student",
@@ -38,6 +39,7 @@ const Login = () => {
       const res = await axios.post(
         `${USER_API_ENDPOINT}/login`,
         {
+          cccd: input.cccd,
           email: input.email,
           password: input.password,
           role: input.role,
@@ -98,6 +100,19 @@ const Login = () => {
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
+        </div>
+
+        <div className="mb-4">
+          <Label>Số CCCD</Label>
+          <input
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={loading}
+            name="cccd"
+            onChange={changeEventHandler}
+            placeholder="Nhập số căn cước công dân"
+            type="text"
+            value={input.cccd}
+          />
         </div>
 
         <div className="my-5">
