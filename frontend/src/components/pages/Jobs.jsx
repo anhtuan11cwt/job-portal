@@ -1,33 +1,15 @@
-import axios from "axios";
 import { SlidersHorizontal, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
-import { setAllJobs } from "@/redux/jobSlice";
-import { JOB_API_ENDPOINT } from "@/utils/constant";
+import useGetAllJobs from "@/hooks/useGetAllJobs";
 import JobCard from "../home/JobCard";
 import FilterCard from "../jobs/FilterCard";
 
 const Jobs = () => {
-  const dispatch = useDispatch();
+  useGetAllJobs();
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
   const [showFilter, setShowFilter] = useState(false);
-
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const res = await axios.get(`${JOB_API_ENDPOINT}/get`, {
-          withCredentials: true,
-        });
-        if (res.data.success) {
-          dispatch(setAllJobs(res.data.jobs));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchJobs();
-  }, [dispatch]);
 
   const filteredJobs = allJobs.filter((job) => {
     if (!searchedQuery) return true;

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { LogOut, Menu, User2, X } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { setUser } from "@/redux/authSlice";
+import { USER_API_ENDPOINT } from "@/utils/constant";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -18,10 +20,19 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
-    dispatch(setUser(null));
-    navigate("/");
-    toast.success("Đã đăng xuất thành công");
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API_ENDPOINT}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Đăng xuất thất bại");
+    }
   };
 
   const getUserInitials = (name) => {
