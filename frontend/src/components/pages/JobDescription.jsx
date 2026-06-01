@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
+  Banknote,
   Briefcase,
   Building2,
   Clock,
-  IndianRupee,
   MapPin,
   Users,
 } from "lucide-react";
@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { setSingleJob } from "@/redux/jobSlice";
 import { APPLICATION_API_ENDPOINT, JOB_API_ENDPOINT } from "@/utils/constant";
 import formatCurrency from "@/utils/formatCurrency";
+import translateJobType from "@/utils/translateJobType";
 
 const JobDescription = () => {
   const { id } = useParams();
@@ -88,10 +89,10 @@ const JobDescription = () => {
                 {singleJob.position} Vị trí
               </Badge>
               <Badge className="text-[#f83002] font-bold bg-[#f83002]/10 hover:bg-[#f83002]/20 text-xs sm:text-sm">
-                {singleJob.jobType}
+                {translateJobType(singleJob.jobType)}
               </Badge>
               <Badge className="text-[#7209b7] font-bold bg-[#7209b7]/10 hover:bg-[#7209b7]/20 text-xs sm:text-sm">
-                <IndianRupee className="size-3 mr-1" />
+                <Banknote className="size-3 mr-1" />
                 {formatCurrency(singleJob.salary)}
               </Badge>
             </div>
@@ -137,7 +138,7 @@ const JobDescription = () => {
           </div>
 
           <div className="flex items-start sm:items-center gap-3">
-            <IndianRupee className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
+            <Banknote className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
             <div>
               <span className="font-bold text-sm sm:text-base">
                 Mức lương:{" "}
@@ -167,7 +168,7 @@ const JobDescription = () => {
                 Loại công việc:{" "}
               </span>
               <span className="pl-2 text-gray-700 text-sm sm:text-base">
-                {singleJob.jobType}
+                {translateJobType(singleJob.jobType)}
               </span>
             </div>
           </div>

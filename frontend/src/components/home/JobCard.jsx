@@ -1,9 +1,11 @@
+import { motion } from "framer-motion";
 import { Bookmark, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import formatCurrency from "@/utils/formatCurrency";
+import translateJobType from "@/utils/translateJobType";
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, index = 0 }) => {
   const navigate = useNavigate();
 
   const daysAgoFunction = (mongodbTime) => {
@@ -14,9 +16,12 @@ const JobCard = ({ job }) => {
   };
 
   return (
-    <button
-      className="p-4 sm:p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+    <motion.button
+      animate={{ opacity: 1, x: 0 }}
+      className="p-4 sm:p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 text-left"
+      initial={{ opacity: 0, x: 100 }}
       onClick={() => navigate(`/description/${job?._id}`)}
+      transition={{ delay: index * 0.05, duration: 0.3 }}
       type="button"
     >
       <div className="flex items-center justify-between">
@@ -55,13 +60,13 @@ const JobCard = ({ job }) => {
           {job?.position} Vị trí
         </Badge>
         <Badge className="text-[#f83002] font-bold bg-[#f83002]/10 hover:bg-[#f83002]/20 text-xs">
-          {job?.jobType}
+          {translateJobType(job?.jobType)}
         </Badge>
         <Badge className="text-[#7209b7] font-bold bg-[#7209b7]/10 hover:bg-[#7209b7]/20 text-xs">
           {formatCurrency(job?.salary)}
         </Badge>
       </div>
-    </button>
+    </motion.button>
   );
 };
 

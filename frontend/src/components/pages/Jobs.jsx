@@ -68,8 +68,8 @@ const Jobs = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredJobs.map((job) => (
-                  <JobCard job={job} key={job._id} />
+                {filteredJobs.map((job, index) => (
+                  <JobCard index={index} job={job} key={job._id} />
                 ))}
               </div>
             )}

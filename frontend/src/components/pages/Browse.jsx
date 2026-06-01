@@ -41,8 +41,8 @@ const Browse = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {allJobs.map((job) => (
-            <JobCard job={job} key={job._id} />
+          {allJobs.map((job, index) => (
+            <JobCard index={index} job={job} key={job._id} />
           ))}
         </div>
       )}

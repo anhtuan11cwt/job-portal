@@ -14,8 +14,8 @@ const LatestJobs = () => {
         <p className="text-center text-gray-500 mt-10">Không có việc làm nào</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
-          {allJobs?.slice(0, 6).map((job) => (
-            <JobCard job={job} key={job._id} />
+          {allJobs?.slice(0, 6).map((job, index) => (
+            <JobCard index={index} job={job} key={job._id} />
           ))}
         </div>
       )}

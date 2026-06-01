@@ -13,46 +13,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
+import { formatDate } from "@/utils/formatDate";
 import EditProfileModal from "./EditProfileModal";
 
 const Profile = () => {
+  useGetAppliedJobs();
   const { user } = useSelector((store) => store.auth);
+  const { allAppliedJobs } = useSelector((store) => store.job);
   const [open, setOpen] = useState(false);
 
   const skills = user?.profile?.skills || [];
 
-  const appliedJobs = [
-    {
-      company: "Microsoft",
-      date: "23-12-2024",
-      status: "Đã chọn",
-      title: "Kỹ sư phần mềm",
-    },
-    {
-      company: "Google",
-      date: "20-12-2024",
-      status: "Đang chờ",
-      title: "Lập trình viên Frontend",
-    },
-    {
-      company: "Amazon",
-      date: "15-12-2024",
-      status: "Từ chối",
-      title: "Lập trình viên Backend",
-    },
-  ];
+  const statusColors = {
+    accepted: "bg-green-100 text-green-700",
+    pending: "bg-gray-100 text-gray-700",
+    rejected: "bg-red-100 text-red-700",
+  };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "Đã chọn":
-        return "bg-green-100 text-green-700";
-      case "Đang chờ":
-        return "bg-yellow-100 text-yellow-700";
-      case "Từ chối":
-        return "bg-red-100 text-red-700";
-      default:
-        return "bg-gray-100 text-gray-700";
-    }
+  const statusLabels = {
+    accepted: "Chấp nhận",
+    pending: "Đang chờ",
+    rejected: "Từ chối",
   };
 
   return (
@@ -139,23 +121,34 @@ const Profile = () => {
 
         {/* Mobile Card View */}
         <div className="sm:hidden space-y-3">
-          {appliedJobs.map((job) => (
-            <div
-              className="border rounded-lg p-3"
-              key={`${job.date}-${job.company}-${job.title}-${job.status}`}
-            >
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <p className="font-medium text-sm">{job.title}</p>
-                  <p className="text-xs text-gray-500">{job.company}</p>
+          {allAppliedJobs.length > 0 ? (
+            allAppliedJobs.map((app) => (
+              <div className="border rounded-lg p-3" key={app._id}>
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <p className="font-medium text-sm">
+                      {app.job?.title || "N/A"}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {app.job?.company?.name || "N/A"}
+                    </p>
+                  </div>
+                  <Badge
+                    className={`${statusColors[app.status] || statusColors.pending} text-xs`}
+                  >
+                    {statusLabels[app.status] || app.status}
+                  </Badge>
                 </div>
-                <Badge className={`${getStatusColor(job.status)} text-xs`}>
-                  {job.status}
-                </Badge>
+                <p className="text-xs text-gray-400">
+                  {formatDate(app.createdAt)}
+                </p>
               </div>
-              <p className="text-xs text-gray-400">{job.date}</p>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-center text-gray-500 text-sm">
+              Chưa ứng tuyển công việc nào
+            </p>
+          )}
         </div>
 
         {/* Desktop Table View */}
@@ -171,20 +164,32 @@ const Profile = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {appliedJobs.map((job) => (
-                <TableRow
-                  key={`${job.date}-${job.company}-${job.title}-${job.status}`}
-                >
-                  <TableCell>{job.date}</TableCell>
-                  <TableCell className="font-medium">{job.title}</TableCell>
-                  <TableCell>{job.company}</TableCell>
-                  <TableCell className="text-center">
-                    <Badge className={getStatusColor(job.status)}>
-                      {job.status}
-                    </Badge>
+              {allAppliedJobs.length > 0 ? (
+                allAppliedJobs.map((app) => (
+                  <TableRow key={app._id}>
+                    <TableCell>{formatDate(app.createdAt)}</TableCell>
+                    <TableCell className="font-medium">
+                      {app.job?.title || "N/A"}
+                    </TableCell>
+                    <TableCell>{app.job?.company?.name || "N/A"}</TableCell>
+                    <TableCell className="text-center">
+                      <Badge
+                        className={
+                          statusColors[app.status] || statusColors.pending
+                        }
+                      >
+                        {statusLabels[app.status] || app.status}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell className="text-center text-gray-500" colSpan={4}>
+                    Chưa ứng tuyển công việc nào
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </div>
