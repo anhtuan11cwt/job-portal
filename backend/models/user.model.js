@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    cccd: {
+      required: true,
+      type: String,
+      unique: true,
+    },
     email: {
       required: true,
       type: String,
@@ -30,6 +35,11 @@ const userSchema = new mongoose.Schema(
       enum: ["student", "recruiter"],
       required: true,
       type: String,
+    },
+    taxCode: {
+      required: true,
+      type: String,
+      unique: true,
     },
   },
   { timestamps: true },

@@ -25,7 +25,7 @@
   "main": "index.js",
   "name": "backend",
   "scripts": {
-    "build": "npm run lint",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "check": "biome check --write",
     "check2": "biome check --write --unsafe",
     "dev": "nodemon index.js",
@@ -33,6 +33,7 @@
     "lint": "eslint .",
     "lint2": "biome lint --write",
     "predev": "npx kill-port 5001",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",

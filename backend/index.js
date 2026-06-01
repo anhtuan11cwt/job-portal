@@ -1,4 +1,6 @@
 import "dotenv/config";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
@@ -7,6 +9,9 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import userRoute from "./routes/user.route.js";
 import connectDB from "./utils/db.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -19,7 +24,10 @@ app.use(cookieParser());
 // CORS
 const corsOptions = {
   credentials: true,
-  origin: "http://localhost:5173",
+  origin:
+    process.env.NODE_ENV === "production"
+      ? process.env.FRONTEND_URL
+      : "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 
@@ -28,6 +36,14 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
+
+// Production: serve frontend static files
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.get("*", (_req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
+  });
+}
 
 // Global error handler
 app.use((err, _req, res) => {

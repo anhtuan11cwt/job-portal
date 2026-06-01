@@ -4,15 +4,24 @@ import User from "../models/user.model.js";
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, phoneNumber, password, role } = req.body;
-    if (!fullName || !email || !phoneNumber || !password || !role) {
+    const { fullName, email, phoneNumber, password, role, taxCode, cccd } =
+      req.body;
+    if (
+      !fullName ||
+      !email ||
+      !phoneNumber ||
+      !password ||
+      !role ||
+      !taxCode ||
+      !cccd
+    ) {
       return res.status(400).json({
         message: "Vui lòng điền đầy đủ thông tin",
         success: false,
       });
     }
     const existingUser = await User.findOne({
-      $or: [{ email }, { phoneNumber }],
+      $or: [{ email }, { phoneNumber }, { cccd }, { taxCode }],
     });
     if (existingUser) {
       if (existingUser.email === email) {
@@ -21,20 +30,36 @@ export const register = async (req, res) => {
           success: false,
         });
       }
-      return res.status(400).json({
-        message: "Số điện thoại đã được đăng ký",
-        success: false,
-      });
+      if (existingUser.phoneNumber === phoneNumber) {
+        return res.status(400).json({
+          message: "Số điện thoại đã được đăng ký",
+          success: false,
+        });
+      }
+      if (existingUser.cccd === cccd) {
+        return res.status(400).json({
+          message: "Số CCCD đã được đăng ký",
+          success: false,
+        });
+      }
+      if (existingUser.taxCode === taxCode) {
+        return res.status(400).json({
+          message: "Mã số thuế đã được đăng ký",
+          success: false,
+        });
+      }
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const profilePhoto = req.file?.path || "";
     await User.create({
+      cccd,
       email,
       fullName,
       password: hashedPassword,
       phoneNumber,
       profile: { profilePhoto },
       role,
+      taxCode,
     });
     return res.status(201).json({
       message: "Tạo tài khoản thành công",
@@ -51,8 +76,8 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
-    if (!email || !password || !role) {
+    const { email, password, role, cccd } = req.body;
+    if (!email || !password || !role || !cccd) {
       return res.status(400).json({
         message: "Vui lòng điền đầy đủ thông tin",
         success: false,
@@ -62,6 +87,12 @@ export const login = async (req, res) => {
     if (!user) {
       return res.status(400).json({
         message: "Email hoặc mật khẩu không chính xác",
+        success: false,
+      });
+    }
+    if (user.cccd !== cccd) {
+      return res.status(400).json({
+        message: "Số CCCD không chính xác",
         success: false,
       });
     }
@@ -84,11 +115,13 @@ export const login = async (req, res) => {
     });
     const userData = {
       _id: user._id,
+      cccd: user.cccd,
       email: user.email,
       fullName: user.fullName,
       phoneNumber: user.phoneNumber,
       profile: user.profile,
       role: user.role,
+      taxCode: user.taxCode,
     };
     return res
       .status(200)
@@ -173,11 +206,13 @@ export const updateProfile = async (req, res) => {
     await user.save();
     const updatedUser = {
       _id: user._id,
+      cccd: user.cccd,
       email: user.email,
       fullName: user.fullName,
       phoneNumber: user.phoneNumber,
       profile: user.profile,
       role: user.role,
+      taxCode: user.taxCode,
     };
     return res.status(200).json({
       message: "Cập nhật hồ sơ thành công",
