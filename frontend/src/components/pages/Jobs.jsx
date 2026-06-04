@@ -9,18 +9,32 @@ import FilterCard from "../jobs/FilterCard";
 
 const Jobs = () => {
   useGetAllJobs();
-  const { allJobs, searchedQuery } = useSelector((store) => store.job);
+  const { allJobs, filters } = useSelector((store) => store.job);
   const [showFilter, setShowFilter] = useState(false);
 
   const filteredJobs = allJobs.filter((job) => {
-    if (!searchedQuery) return true;
-    const query = searchedQuery.toLowerCase();
-    return (
-      job.title?.toLowerCase().includes(query) ||
-      job.description?.toLowerCase().includes(query) ||
-      job.location?.toLowerCase().includes(query) ||
-      job.jobType?.toLowerCase().includes(query)
-    );
+    if (filters.location && job.location !== filters.location) return false;
+    if (filters.salary) {
+      const salaryNum = job.salary;
+      const matchSalary = (range) => {
+        if (range === "0 - 50 triệu") return salaryNum <= 50000000;
+        if (range === "50 - 100 triệu")
+          return salaryNum > 50000000 && salaryNum <= 100000000;
+        if (range === "100 - 200 triệu")
+          return salaryNum > 100000000 && salaryNum <= 200000000;
+        if (range === "200 triệu+") return salaryNum > 200000000;
+        return true;
+      };
+      if (!matchSalary(filters.salary)) return false;
+    }
+    if (filters.industry) {
+      const query = filters.industry.toLowerCase();
+      const match =
+        job.title?.toLowerCase().includes(query) ||
+        job.description?.toLowerCase().includes(query);
+      if (!match) return false;
+    }
+    return true;
   });
 
   return (
