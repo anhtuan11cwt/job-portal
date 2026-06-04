@@ -70,14 +70,14 @@ const JobDescription = () => {
 
   if (!singleJob) {
     return (
-      <div className="max-w-7xl mx-auto my-10 px-4 text-center">
+      <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40 text-center">
         <p className="text-gray-500">Đang tải...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto my-6 sm:my-10 px-4">
+    <div className="my-6 sm:my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row items-start justify-between gap-4">

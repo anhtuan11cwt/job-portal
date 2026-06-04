@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-5 my-10 text-center px-4">
+    <div className="flex flex-col items-center gap-5 my-10 text-center">
       <div className="flex items-center justify-center gap-2">
         <Building2 className="size-5 text-[#6A38C2]" />
         <span className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gray-200 text-[#f83002] font-medium text-xs sm:text-sm">

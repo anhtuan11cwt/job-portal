@@ -1,6 +1,6 @@
 const TermsServices = () => {
   return (
-    <div className="max-w-4xl mx-auto my-10 px-4">
+    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <h1 className="text-3xl font-bold mb-6">Điều khoản dịch vụ</h1>
 
       <div className="space-y-6 text-gray-700 leading-relaxed">

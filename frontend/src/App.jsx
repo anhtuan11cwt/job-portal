@@ -23,7 +23,7 @@ const Applicants = lazy(() => import("./components/admin/Applicants"));
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Navbar />
       <main className="flex-1">
         <Suspense fallback={<div className="p-6 text-center">Đang tải...</div>}>

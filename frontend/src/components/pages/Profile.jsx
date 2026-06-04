@@ -38,7 +38,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-6 sm:my-10 px-4">
+    <div className="my-6 sm:my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6">
         {/* Profile Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

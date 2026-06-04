@@ -30,7 +30,7 @@ const Browse = () => {
   }, [dispatch, keyword]);
 
   return (
-    <div className="max-w-7xl mx-auto my-6 sm:my-10 px-4">
+    <div className="my-6 sm:my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <h1 className="text-lg sm:text-xl font-bold mb-5">
         Kết quả tìm kiếm ({allJobs.length})
       </h1>

@@ -36,8 +36,8 @@ const CompanyCreate = () => {
   };
 
   return (
-    <div className="flex items-center justify-center max-w-7xl mx-auto px-4">
-      <form className="w-4/5 md:w-1/2 border border-gray-200 rounded-md p-4 my-10">
+    <div className="px-6 md:px-12 lg:px-24 xl:px-40 my-10">
+      <form className="w-full border border-gray-200 rounded-md p-4">
         <h1 className="font-bold text-xl mb-5">Tên công ty của bạn</h1>
         <p className="text-gray-500 mb-5">
           Bạn có thể thay đổi tên công ty sau này.

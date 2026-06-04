@@ -48,8 +48,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white border-b border-gray-200">
-      <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
+    <div className="bg-white border-b border-gray-200 px-6 md:px-12 lg:px-24 xl:px-40">
+      <div className="flex items-center justify-between h-16">
         <div>
           <h1 className="text-2xl font-bold">
             Cổng <span className="text-[#f83002]">việc làm</span>

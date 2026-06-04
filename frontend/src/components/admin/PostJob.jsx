@@ -72,7 +72,7 @@ const PostJob = () => {
   };
 
   return (
-    <div className="flex items-center justify-center max-w-4xl mx-auto my-10 px-4">
+    <div className="flex items-center justify-center my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <form
         className="w-full border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
         onSubmit={submitHandler}

@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Ẩn thanh scroll cho toàn bộ ứng dụng */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

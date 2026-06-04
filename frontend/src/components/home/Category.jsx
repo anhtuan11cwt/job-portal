@@ -24,7 +24,7 @@ const categories = [
 
 const Category = () => {
   return (
-    <div className="my-12 sm:my-20 px-4">
+    <div className="my-12 sm:my-20">
       <h1 className="text-xl sm:text-2xl font-bold text-center text-[#6A38C2]">
         Danh mục
       </h1>

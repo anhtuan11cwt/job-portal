@@ -91,7 +91,7 @@ const CompanyForm = ({ company, navigate, companyId }) => {
 
   return (
     <form
-      className="w-4/5 rounded-md border border-gray-200 p-4 md:w-1/2"
+      className="w-full rounded-md border border-gray-200 p-4"
       onSubmit={submitHandler}
     >
       <Button
@@ -208,7 +208,7 @@ const CompanySetup = () => {
   const { singleCompany } = useSelector((store) => store.company);
 
   return (
-    <div className="mx-auto flex max-w-7xl items-center justify-center px-4">
+    <div className="mx-auto flex items-center justify-center px-6 md:px-12 lg:px-24 xl:px-40">
       <CompanyForm
         company={singleCompany}
         companyId={params.id}

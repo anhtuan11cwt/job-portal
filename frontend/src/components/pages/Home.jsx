@@ -18,7 +18,7 @@ const Home = () => {
   }, [user, navigate]);
 
   return (
-    <div>
+    <div className="px-6 md:px-12 lg:px-24 xl:px-40">
       <Header />
       <Category />
       <LatestJobs />
