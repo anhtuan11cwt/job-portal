@@ -23,7 +23,9 @@ const AdminJobTable = ({ filterByTitle }) => {
   return (
     <>
       {filteredJobs.length <= 0 ? (
-        <p className="text-center text-gray-500 mt-10">Chưa có công việc nào</p>
+        <p className="text-center text-muted-foreground mt-10">
+          Chưa có công việc nào
+        </p>
       ) : (
         <Table>
           <TableHeader>
@@ -45,6 +47,7 @@ const AdminJobTable = ({ filterByTitle }) => {
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">
                     <Button
+                      aria-label={`Xem ứng viên cho ${job.title}`}
                       onClick={() =>
                         navigate(`/admin/jobs/${job._id}/applicants`)
                       }

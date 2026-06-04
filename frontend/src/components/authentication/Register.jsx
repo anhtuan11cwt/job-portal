@@ -21,7 +21,6 @@ const Register = () => {
     password: "",
     phone: "",
     role: "student",
-    taxCode: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
@@ -106,9 +105,6 @@ const Register = () => {
     if (!input.cccd.trim()) {
       newErrors.cccd = "Vui lòng nhập số CCCD";
     }
-    if (input.role === "recruiter" && !input.taxCode.trim()) {
-      newErrors.taxCode = "Vui lòng nhập mã số thuế";
-    }
     if (!input.file) {
       newErrors.file = "Vui lòng chọn ảnh đại diện";
     }
@@ -128,7 +124,6 @@ const Register = () => {
       formData.append("phoneNumber", input.phone);
       formData.append("password", input.password);
       formData.append("role", input.role);
-      formData.append("taxCode", input.taxCode);
       formData.append("cccd", input.cccd);
       if (input.file) {
         formData.append("profilePhoto", input.file);
@@ -334,37 +329,6 @@ const Register = () => {
                   </p>
                 )}
               </div>
-
-              {input.role === "recruiter" && (
-                <div className="space-y-2">
-                  <Label htmlFor="taxCode">
-                    Mã số thuế <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    aria-describedby={
-                      errors.taxCode ? "taxCode-error" : undefined
-                    }
-                    aria-invalid={!!errors.taxCode}
-                    autoComplete="off"
-                    disabled={loading}
-                    id="taxCode"
-                    name="taxCode"
-                    onChange={changeEventHandler}
-                    placeholder="Nhập mã số thuế của bạn"
-                    type="text"
-                    value={input.taxCode}
-                  />
-                  {errors.taxCode && (
-                    <p
-                      className="text-xs text-destructive"
-                      id="taxCode-error"
-                      role="alert"
-                    >
-                      {errors.taxCode}
-                    </p>
-                  )}
-                </div>
-              )}
             </div>
           </fieldset>
 

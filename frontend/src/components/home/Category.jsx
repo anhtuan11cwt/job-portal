@@ -25,10 +25,10 @@ const categories = [
 const Category = () => {
   return (
     <div className="my-12 sm:my-20">
-      <h1 className="text-xl sm:text-2xl font-bold text-center text-[#6A38C2]">
+      <h1 className="text-xl sm:text-2xl font-bold text-center text-primary">
         Danh mục
       </h1>
-      <p className="text-center text-gray-600 mt-2 mb-6 sm:mb-8 text-sm sm:text-base">
+      <p className="text-center text-muted-foreground mt-2 mb-6 sm:mb-8 text-sm sm:text-base">
         Khám phá thị trường việc làm đa dạng
       </p>
 
@@ -37,7 +37,7 @@ const Category = () => {
           {categories.map((category) => (
             <CarouselItem className="pl-2 basis-auto" key={category}>
               <Button
-                className="rounded-full border-[#6A38C2] text-[#6A38C2] hover:bg-[#6A38C2] hover:text-white text-xs sm:text-sm whitespace-nowrap"
+                className="rounded-full border-primary text-primary hover:bg-primary hover:text-primary-foreground text-xs sm:text-sm whitespace-nowrap"
                 variant="outline"
               >
                 {category}

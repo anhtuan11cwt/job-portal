@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
+import { cn } from "@/lib/utils";
 import { formatDate } from "@/utils/formatDate";
 import EditProfileModal from "./EditProfileModal";
 
@@ -27,7 +28,7 @@ const Profile = () => {
 
   const statusColors = {
     accepted: "bg-green-100 text-green-700",
-    pending: "bg-gray-100 text-gray-700",
+    pending: "bg-muted text-muted-foreground",
     rejected: "bg-red-100 text-red-700",
   };
 
@@ -38,23 +39,22 @@ const Profile = () => {
   };
 
   return (
-    <div className="my-6 sm:my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6">
-        {/* Profile Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="mx-auto my-6 sm:my-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+      <div className="bg-card p-4 sm:p-6 border border-border rounded-2xl">
+        <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4">
           <div className="flex items-center gap-4 sm:gap-5">
-            <Avatar className="h-16 w-16 sm:h-24 sm:w-24">
+            <Avatar className="w-16 sm:w-24 h-16 sm:h-24">
               <AvatarImage
                 alt={user?.fullName}
                 src={user?.profile?.profilePhoto}
               />
-              <AvatarFallback className="text-xl sm:text-2xl bg-[#6A38C2] text-white">
+              <AvatarFallback className="bg-primary text-primary-foreground text-xl sm:text-2xl">
                 {user?.fullName?.[0]?.toUpperCase() || "U"}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="text-lg sm:text-xl font-bold">{user?.fullName}</h1>
-              <p className="text-sm sm:text-base text-gray-600">
+              <h1 className="font-bold text-lg sm:text-xl">{user?.fullName}</h1>
+              <p className="text-muted-foreground text-sm sm:text-base">
                 {user?.profile?.bio || "Chưa có giới thiệu"}
               </p>
             </div>
@@ -65,26 +65,25 @@ const Profile = () => {
             size="sm"
             variant="outline"
           >
-            <Pen className="size-4 mr-1" />
+            <Pen className="mr-1 size-4" />
             Chỉnh sửa
           </Button>
         </div>
 
-        {/* Contact Info */}
-        <div className="my-5 space-y-3">
-          <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
+        <div className="space-y-3 my-5">
+          <div className="flex items-center gap-2 text-muted-foreground text-sm sm:text-base">
             <Mail className="size-4 shrink-0" />
             <a
-              className="hover:text-[#6A38C2] hover:underline"
+              className="hover:text-primary hover:underline"
               href={`mailto:${user?.email}`}
             >
               {user?.email}
             </a>
           </div>
-          <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
+          <div className="flex items-center gap-2 text-muted-foreground text-sm sm:text-base">
             <Phone className="size-4 shrink-0" />
             <a
-              className="hover:text-[#6A38C2] hover:underline"
+              className="hover:text-primary hover:underline"
               href={`tel:${user?.phoneNumber}`}
             >
               {user?.phoneNumber || "Chưa cung cấp"}
@@ -92,10 +91,9 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Skills */}
         <div className="my-5">
-          <h2 className="font-semibold mb-3 text-base sm:text-lg">Kỹ năng</h2>
-          <div className="flex items-center gap-2 flex-wrap">
+          <h2 className="mb-3 font-semibold text-base sm:text-lg">Kỹ năng</h2>
+          <div className="flex flex-wrap items-center gap-2">
             {skills.length > 0 ? (
               skills.map((skill) => (
                 <Badge
@@ -107,51 +105,56 @@ const Profile = () => {
                 </Badge>
               ))
             ) : (
-              <span className="text-gray-500 text-sm">Chưa có kỹ năng</span>
+              <span className="text-muted-foreground text-sm">
+                Chưa có kỹ năng
+              </span>
             )}
           </div>
         </div>
       </div>
 
-      {/* Applied Jobs Table */}
-      <div className="bg-white rounded-lg border border-gray-200 mt-6 p-4 sm:p-6">
-        <h2 className="font-bold text-base sm:text-lg mb-4">
+      <div className="bg-card mt-6 p-4 sm:p-6 border border-border rounded-2xl">
+        <h2 className="mb-4 font-bold text-base sm:text-lg">
           Việc làm đã ứng tuyển
         </h2>
 
-        {/* Mobile Card View */}
         <div className="sm:hidden space-y-3">
           {allAppliedJobs.length > 0 ? (
             allAppliedJobs.map((app) => (
-              <div className="border rounded-lg p-3" key={app._id}>
+              <div
+                className="p-3 border border-border rounded-xl"
+                key={app._id}
+              >
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <p className="font-medium text-sm">
                       {app.job?.title || "N/A"}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-muted-foreground text-xs">
                       {app.job?.company?.name || "N/A"}
                     </p>
                   </div>
                   <Badge
-                    className={`${statusColors[app.status] || statusColors.pending} text-xs`}
+                    className={cn(
+                      statusColors[app.status] || statusColors.pending,
+                      "text-xs",
+                    )}
                   >
                     {statusLabels[app.status] || app.status}
                   </Badge>
                 </div>
-                <p className="text-xs text-gray-400">
+                <p className="text-muted-foreground/60 text-xs">
                   {formatDate(app.createdAt)}
                 </p>
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500 text-sm">
+            <p className="text-muted-foreground text-sm text-center">
               Chưa ứng tuyển công việc nào
             </p>
           )}
         </div>
 
-        {/* Desktop Table View */}
         <div className="hidden sm:block">
           <Table>
             <TableCaption>Các việc làm đã ứng tuyển gần đây</TableCaption>
@@ -174,9 +177,9 @@ const Profile = () => {
                     <TableCell>{app.job?.company?.name || "N/A"}</TableCell>
                     <TableCell className="text-center">
                       <Badge
-                        className={
-                          statusColors[app.status] || statusColors.pending
-                        }
+                        className={cn(
+                          statusColors[app.status] || statusColors.pending,
+                        )}
                       >
                         {statusLabels[app.status] || app.status}
                       </Badge>
@@ -185,7 +188,10 @@ const Profile = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell className="text-center text-gray-500" colSpan={4}>
+                  <TableCell
+                    className="text-muted-foreground text-center"
+                    colSpan={4}
+                  >
                     Chưa ứng tuyển công việc nào
                   </TableCell>
                 </TableRow>

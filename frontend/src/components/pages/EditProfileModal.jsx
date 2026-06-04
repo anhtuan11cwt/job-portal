@@ -139,16 +139,16 @@ const EditProfileModal = ({ open, setOpen }) => {
           </div>
 
           <DialogFooter>
-            {loading ? (
-              <Button className="bg-black hover:bg-gray-900" disabled>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Đang lưu...
-              </Button>
-            ) : (
-              <Button className="bg-black hover:bg-gray-900" type="submit">
-                Lưu thay đổi
-              </Button>
-            )}
+            <Button disabled={loading} type="submit">
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Đang lưu...
+                </>
+              ) : (
+                "Lưu thay đổi"
+              )}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

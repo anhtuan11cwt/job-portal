@@ -3,7 +3,9 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { COMPANY_API_ENDPOINT } from "@/utils/constant";
 
@@ -36,17 +38,24 @@ const CompanyCreate = () => {
   };
 
   return (
-    <div className="px-6 md:px-12 lg:px-24 xl:px-40 my-10">
-      <form className="w-full border border-gray-200 rounded-md p-4">
-        <h1 className="font-bold text-xl mb-5">Tên công ty của bạn</h1>
-        <p className="text-gray-500 mb-5">
+    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+      <Breadcrumb
+        items={[
+          { href: "/admin/companies", label: "Công ty" },
+          { label: "Thêm công ty" },
+        ]}
+      />
+      <form className="bg-card shadow-sm p-6 sm:p-8 border border-border rounded-2xl mt-5">
+        <h1 className="mb-5 font-bold text-xl">Tên công ty của bạn</h1>
+        <p className="mb-5 text-muted-foreground">
           Bạn có thể thay đổi tên công ty sau này.
         </p>
-        <div className="mb-4">
-          <Label>Tên công ty</Label>
-          <input
-            className="w-full border border-gray-300 rounded-md p-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+        <div className="max-w-xl mb-4">
+          <Label htmlFor="companyName">Tên công ty</Label>
+          <Input
+            className="mt-2"
             disabled={loading}
+            id="companyName"
             onChange={(e) => setCompanyName(e.target.value)}
             placeholder="Nhập tên công ty, ví dụ: Sunfire Sensei"
             type="text"
@@ -54,21 +63,20 @@ const CompanyCreate = () => {
           />
         </div>
         <div className="flex gap-4 my-10">
-          {loading ? (
-            <Button className="bg-[#6A38C2] hover:bg-[#5b30a6]" disabled>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Vui lòng chờ
-            </Button>
-          ) : (
-            <Button
-              className="bg-[#6A38C2] hover:bg-[#5b30a6]"
-              disabled={!companyName.trim()}
-              onClick={registerNewCompany}
-              type="button"
-            >
-              Tiếp tục
-            </Button>
-          )}
+          <Button
+            disabled={loading || !companyName.trim()}
+            onClick={registerNewCompany}
+            type="button"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                Vui lòng chờ
+              </>
+            ) : (
+              "Tiếp tục"
+            )}
+          </Button>
           <Button
             disabled={loading}
             onClick={() => navigate("/admin/companies")}

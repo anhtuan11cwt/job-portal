@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useGetAllCompanies from "@/hooks/useGetAllCompanies";
+import { cn } from "@/lib/utils";
 import { JOB_API_ENDPOINT } from "@/utils/constant";
 
 const PostJob = () => {
@@ -71,20 +73,32 @@ const PostJob = () => {
     }
   };
 
+  const selectClasses = cn(
+    "flex bg-input/30 px-3 py-1 border border-input rounded-4xl w-full h-9 md:text-sm text-base transition-colors",
+    "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+    "disabled:pointer-events-none disabled:opacity-50",
+  );
+
   return (
-    <div className="flex items-center justify-center my-10 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+      <Breadcrumb
+        items={[
+          { href: "/admin/jobs", label: "Việc làm" },
+          { label: "Đăng tin mới" },
+        ]}
+      />
       <form
-        className="w-full border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+        className="bg-card shadow-sm p-6 sm:p-8 border border-border rounded-2xl mt-5"
         onSubmit={submitHandler}
       >
-        <h1 className="font-bold text-xl mb-6">Đăng tin tuyển dụng</h1>
+        <h1 className="mb-6 font-bold text-xl">Đăng tin tuyển dụng</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="mb-4">
-            <Label>Tiêu đề</Label>
+        <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="space-y-2">
+            <Label htmlFor="title">Tiêu đề</Label>
             <Input
-              className="mt-2"
               disabled={loading}
+              id="title"
               name="title"
               onChange={changeEventHandler}
               placeholder="VD: Lập trình viên Backend"
@@ -92,35 +106,11 @@ const PostJob = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <Label>Mô tả</Label>
+          <div className="space-y-2">
+            <Label htmlFor="salary">Lương (VNĐ)</Label>
             <Input
-              className="mt-2"
               disabled={loading}
-              name="description"
-              onChange={changeEventHandler}
-              placeholder="Mô tả công việc"
-              value={input.description}
-            />
-          </div>
-
-          <div className="mb-4">
-            <Label>Yêu cầu</Label>
-            <Input
-              className="mt-2"
-              disabled={loading}
-              name="requirements"
-              onChange={changeEventHandler}
-              placeholder="Yêu cầu công việc"
-              value={input.requirements}
-            />
-          </div>
-
-          <div className="mb-4">
-            <Label>Lương (VNĐ)</Label>
-            <Input
-              className="mt-2"
-              disabled={loading}
+              id="salary"
               name="salary"
               onChange={changeEventHandler}
               placeholder="VD: 15000000"
@@ -129,11 +119,11 @@ const PostJob = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <Label>Địa điểm</Label>
+          <div className="space-y-2">
+            <Label htmlFor="location">Địa điểm</Label>
             <Input
-              className="mt-2"
               disabled={loading}
+              id="location"
               name="location"
               onChange={changeEventHandler}
               placeholder="VD: Hà Nội"
@@ -141,11 +131,12 @@ const PostJob = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <Label>Loại công việc</Label>
+          <div className="space-y-2">
+            <Label htmlFor="jobType">Loại công việc</Label>
             <select
-              className="w-full border border-gray-300 rounded-md p-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={selectClasses}
               disabled={loading}
+              id="jobType"
               name="jobType"
               onChange={changeEventHandler}
               value={input.jobType}
@@ -159,11 +150,11 @@ const PostJob = () => {
             </select>
           </div>
 
-          <div className="mb-4">
-            <Label>Kinh nghiệm (năm)</Label>
+          <div className="space-y-2">
+            <Label htmlFor="experience">Kinh nghiệm (năm)</Label>
             <Input
-              className="mt-2"
               disabled={loading}
+              id="experience"
               name="experience"
               onChange={changeEventHandler}
               placeholder="VD: 2"
@@ -172,11 +163,11 @@ const PostJob = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <Label>Số lượng tuyển</Label>
+          <div className="space-y-2">
+            <Label htmlFor="position">Số lượng tuyển</Label>
             <Input
-              className="mt-2"
               disabled={loading}
+              id="position"
               name="position"
               onChange={changeEventHandler}
               placeholder="VD: 3"
@@ -186,12 +177,51 @@ const PostJob = () => {
           </div>
         </div>
 
-        <div className="mb-6 mt-4">
-          <Label>Chọn công ty</Label>
+        <div className="gap-4 grid grid-cols-1 lg:grid-cols-2 mt-4">
+          <div className="space-y-2">
+            <Label htmlFor="description">Mô tả</Label>
+            <textarea
+              className={cn(
+                "flex bg-input/30 px-3 py-2 border border-input rounded-2xl w-full min-h-[140px] text-sm transition-colors resize-y",
+                "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+                "disabled:pointer-events-none disabled:opacity-50",
+                "placeholder:text-muted-foreground",
+              )}
+              disabled={loading}
+              id="description"
+              name="description"
+              onChange={changeEventHandler}
+              placeholder="Mô tả chi tiết công việc..."
+              value={input.description}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="requirements">Yêu cầu</Label>
+            <textarea
+              className={cn(
+                "flex bg-input/30 px-3 py-2 border border-input rounded-2xl w-full min-h-[140px] text-sm transition-colors resize-y",
+                "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+                "disabled:pointer-events-none disabled:opacity-50",
+                "placeholder:text-muted-foreground",
+              )}
+              disabled={loading}
+              id="requirements"
+              name="requirements"
+              onChange={changeEventHandler}
+              placeholder="Yêu cầu đối với ứng viên..."
+              value={input.requirements}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2 mt-4">
+          <Label htmlFor="companyId">Chọn công ty</Label>
           {companies.length > 0 ? (
             <select
-              className="w-full border border-gray-300 rounded-md p-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={cn(selectClasses, "w-full")}
               disabled={loading}
+              id="companyId"
               name="companyId"
               onChange={selectChangeHandler}
               value={input.companyId}
@@ -204,35 +234,35 @@ const PostJob = () => {
               ))}
             </select>
           ) : (
-            <p className="text-red-500 text-sm mt-2">
+            <p className="mt-2 text-destructive text-sm">
               Bạn cần đăng ký công ty trước khi đăng tin.
             </p>
           )}
         </div>
 
-        <div className="flex gap-4">
-          {loading ? (
-            <Button className="bg-[#6A38C2] hover:bg-[#5b30a6]" disabled>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Đang đăng tin...
-            </Button>
-          ) : (
-            <Button
-              className="bg-[#6A38C2] hover:bg-[#5b30a6]"
-              disabled={
-                !input.title ||
-                !input.description ||
-                !input.salary ||
-                !input.location ||
-                !input.jobType ||
-                !input.position ||
-                !input.companyId
-              }
-              type="submit"
-            >
-              Đăng tin
-            </Button>
-          )}
+        <div className="flex gap-4 mt-6">
+          <Button
+            disabled={
+              loading ||
+              !input.title ||
+              !input.description ||
+              !input.salary ||
+              !input.location ||
+              !input.jobType ||
+              !input.position ||
+              !input.companyId
+            }
+            type="submit"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                Đang đăng tin...
+              </>
+            ) : (
+              "Đăng tin"
+            )}
+          </Button>
           <Button
             disabled={loading}
             onClick={() => navigate("/admin/jobs")}

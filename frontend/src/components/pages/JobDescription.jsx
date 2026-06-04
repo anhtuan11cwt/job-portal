@@ -11,8 +11,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { setSingleJob } from "@/redux/jobSlice";
 import { APPLICATION_API_ENDPOINT, JOB_API_ENDPOINT } from "@/utils/constant";
 import formatCurrency from "@/utils/formatCurrency";
@@ -70,39 +72,43 @@ const JobDescription = () => {
 
   if (!singleJob) {
     return (
-      <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40 text-center">
-        <p className="text-gray-500">Đang tải...</p>
+      <div className="mx-auto my-10 px-2 sm:px-4 lg:px-6 max-w-7xl text-center">
+        <p className="text-muted-foreground">Đang tải...</p>
       </div>
     );
   }
 
   return (
-    <div className="my-6 sm:my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6">
-        {/* Header Section */}
-        <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+    <div className="mx-auto pt-3 mb-6 sm:mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+      <Breadcrumb
+        items={[
+          { href: "/jobs", label: "Việc làm" },
+          { label: singleJob?.title || "Chi tiết công việc" },
+        ]}
+      />
+      <div className="bg-card p-4 sm:p-6 border border-border rounded-2xl">
+        <div className="flex sm:flex-row flex-col justify-between items-start gap-4">
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold">{singleJob.title}</h1>
-            <div className="flex items-center gap-2 sm:gap-3 mt-3 flex-wrap">
-              <Badge className="text-[#6A38C2] font-bold bg-[#6A38C2]/10 hover:bg-[#6A38C2]/20 text-xs sm:text-sm">
-                <Briefcase className="size-3 mr-1" />
+            <h1 className="font-bold text-xl sm:text-2xl">{singleJob.title}</h1>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-3">
+              <Badge className="bg-primary/10 hover:bg-primary/20 font-bold text-primary text-xs sm:text-sm">
+                <Briefcase className="mr-1 size-3" />
                 {singleJob.position} Vị trí
               </Badge>
-              <Badge className="text-[#f83002] font-bold bg-[#f83002]/10 hover:bg-[#f83002]/20 text-xs sm:text-sm">
+              <Badge className="bg-brand-accent/10 hover:bg-brand-accent/20 font-bold text-brand-accent text-xs sm:text-sm">
                 {translateJobType(singleJob.jobType)}
               </Badge>
-              <Badge className="text-[#7209b7] font-bold bg-[#7209b7]/10 hover:bg-[#7209b7]/20 text-xs sm:text-sm">
-                <Banknote className="size-3 mr-1" />
+              <Badge className="bg-[#7209b7]/10 hover:bg-[#7209b7]/20 font-bold text-[#7209b7] text-xs sm:text-sm">
+                <Banknote className="mr-1 size-3" />
                 {formatCurrency(singleJob.salary)}
               </Badge>
             </div>
           </div>
           <Button
-            className={`rounded-full px-4 sm:px-6 w-full sm:w-auto ${
-              isApplied
-                ? "bg-gray-500 cursor-not-allowed"
-                : "bg-[#6A38C2] hover:bg-[#5b30a6]"
-            }`}
+            className={cn(
+              "px-4 sm:px-6 rounded-full w-full sm:w-auto",
+              isApplied && "bg-muted-foreground/50 cursor-not-allowed",
+            )}
             disabled={isApplied}
             onClick={isApplied ? null : applyJobHandler}
           >
@@ -110,76 +116,76 @@ const JobDescription = () => {
           </Button>
         </div>
 
-        <hr className="my-6" />
+        <hr className="my-6 border-border" />
 
-        <h2 className="border-b-2 border-gray-300 font-medium pb-3 text-base sm:text-lg">
+        <h2 className="pb-3 border-border border-b-2 font-medium text-base sm:text-lg">
           Mô tả công việc
         </h2>
 
         <div className="space-y-4 mt-5">
           <div className="flex items-start sm:items-center gap-3">
-            <Building2 className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
+            <Building2 className="mt-0.5 sm:mt-0 size-5 text-muted-foreground shrink-0" />
             <div>
               <span className="font-bold text-sm sm:text-base">Vai trò: </span>
-              <span className="pl-2 text-gray-700 text-sm sm:text-base">
+              <span className="pl-2 text-muted-foreground text-sm sm:text-base">
                 {singleJob.title}
               </span>
             </div>
           </div>
 
           <div className="flex items-start sm:items-center gap-3">
-            <MapPin className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
+            <MapPin className="mt-0.5 sm:mt-0 size-5 text-muted-foreground shrink-0" />
             <div>
               <span className="font-bold text-sm sm:text-base">Địa điểm: </span>
-              <span className="pl-2 text-gray-700 text-sm sm:text-base">
+              <span className="pl-2 text-muted-foreground text-sm sm:text-base">
                 {singleJob.location || "Làm từ xa"}
               </span>
             </div>
           </div>
 
           <div className="flex items-start sm:items-center gap-3">
-            <Banknote className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
+            <Banknote className="mt-0.5 sm:mt-0 size-5 text-muted-foreground shrink-0" />
             <div>
               <span className="font-bold text-sm sm:text-base">
                 Mức lương:{" "}
               </span>
-              <span className="pl-2 text-gray-700 text-sm sm:text-base">
+              <span className="pl-2 text-muted-foreground text-sm sm:text-base">
                 {formatCurrency(singleJob.salary)}
               </span>
             </div>
           </div>
 
           <div className="flex items-start sm:items-center gap-3">
-            <Clock className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
+            <Clock className="mt-0.5 sm:mt-0 size-5 text-muted-foreground shrink-0" />
             <div>
               <span className="font-bold text-sm sm:text-base">
                 Kinh nghiệm:{" "}
               </span>
-              <span className="pl-2 text-gray-700 text-sm sm:text-base">
+              <span className="pl-2 text-muted-foreground text-sm sm:text-base">
                 {singleJob.experience} năm
               </span>
             </div>
           </div>
 
           <div className="flex items-start sm:items-center gap-3">
-            <Briefcase className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
+            <Briefcase className="mt-0.5 sm:mt-0 size-5 text-muted-foreground shrink-0" />
             <div>
               <span className="font-bold text-sm sm:text-base">
                 Loại công việc:{" "}
               </span>
-              <span className="pl-2 text-gray-700 text-sm sm:text-base">
+              <span className="pl-2 text-muted-foreground text-sm sm:text-base">
                 {translateJobType(singleJob.jobType)}
               </span>
             </div>
           </div>
 
           <div className="flex items-start sm:items-center gap-3">
-            <Users className="size-5 text-gray-500 shrink-0 mt-0.5 sm:mt-0" />
+            <Users className="mt-0.5 sm:mt-0 size-5 text-muted-foreground shrink-0" />
             <div>
               <span className="font-bold text-sm sm:text-base">
                 Tổng số ứng viên:{" "}
               </span>
-              <span className="pl-2 text-gray-700 text-sm sm:text-base">
+              <span className="pl-2 text-muted-foreground text-sm sm:text-base">
                 {singleJob.applications?.length || 0}
               </span>
             </div>
@@ -187,16 +193,16 @@ const JobDescription = () => {
         </div>
 
         <div className="mt-6">
-          <h3 className="font-bold text-base sm:text-lg mb-3">Về công việc</h3>
-          <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+          <h3 className="mb-3 font-bold text-base sm:text-lg">Về công việc</h3>
+          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
             {singleJob.description}
           </p>
         </div>
 
         {singleJob.requirements && (
           <div className="mt-6">
-            <h3 className="font-bold text-base sm:text-lg mb-3">Yêu cầu</h3>
-            <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+            <h3 className="mb-3 font-bold text-base sm:text-lg">Yêu cầu</h3>
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
               {singleJob.requirements}
             </p>
           </div>

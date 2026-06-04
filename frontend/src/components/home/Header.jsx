@@ -23,25 +23,25 @@ const Header = () => {
   return (
     <div className="flex flex-col items-center gap-5 my-10 text-center">
       <div className="flex items-center justify-center gap-2">
-        <Building2 className="size-5 text-[#6A38C2]" />
-        <span className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gray-200 text-[#f83002] font-medium text-xs sm:text-sm">
+        <Building2 className="size-5 text-primary" />
+        <span className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-muted text-brand-accent font-medium text-xs sm:text-sm">
           Trang web tìm việc số 1
         </span>
       </div>
 
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
         Tìm kiếm, Ứng tuyển & <br className="hidden sm:block" />
-        Nhận <span className="text-[#6A38C2]">Công việc mơ ước</span>
+        Nhận <span className="text-primary">Công việc mơ ước</span>
       </h2>
 
-      <p className="max-w-2xl text-gray-600 text-sm sm:text-base">
+      <p className="max-w-2xl text-muted-foreground text-sm sm:text-base">
         Bắt đầu hành trình tìm kiếm cơ hội nghề nghiệp thay đổi cuộc sống.{" "}
         <br className="hidden md:block" />
         Tìm công việc mơ ước từ hàng ngàn tin tuyển dụng tại các công ty hàng
         đầu.
       </p>
 
-      <div className="flex items-center w-full sm:w-[80%] md:w-[60%] lg:w-[40%] shadow-lg border border-gray-300 rounded-full p-2 sm:p-3 gap-2 sm:gap-4 mx-auto">
+      <div className="flex items-center w-full sm:w-[80%] md:w-[60%] lg:w-[40%] shadow-lg border border-border rounded-full p-2 sm:p-3 gap-2 sm:gap-4 mx-auto">
         <Input
           className="border-none outline-none shadow-none focus-visible:ring-0 text-sm sm:text-base"
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -51,7 +51,8 @@ const Header = () => {
           value={searchQuery}
         />
         <Button
-          className="rounded-full bg-[#6A38C2] hover:bg-[#5b30a6] shrink-0"
+          aria-label="Tìm kiếm"
+          className="rounded-full shrink-0"
           onClick={searchHandler}
         >
           <Search className="h-4 w-4 sm:h-5 sm:w-5" />

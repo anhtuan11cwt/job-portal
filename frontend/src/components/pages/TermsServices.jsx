@@ -1,11 +1,14 @@
+import Breadcrumb from "@/components/shared/Breadcrumb";
+
 const TermsServices = () => {
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <h1 className="text-3xl font-bold mb-6">Điều khoản dịch vụ</h1>
+    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-3xl">
+      <Breadcrumb items={[{ label: "Điều khoản dịch vụ" }]} />
+      <h1 className="mb-6 font-bold text-3xl">Điều khoản dịch vụ</h1>
 
-      <div className="space-y-6 text-gray-700 leading-relaxed">
+      <div className="space-y-6 text-muted-foreground leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold mb-3">
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
             1. Chấp nhận điều khoản
           </h2>
           <p>
@@ -17,7 +20,7 @@ const TermsServices = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
             2. Tài khoản người dùng
           </h2>
           <p>
@@ -28,7 +31,9 @@ const TermsServices = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">3. Ứng tuyển việc làm</h2>
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
+            3. Ứng tuyển việc làm
+          </h2>
           <p>
             Khi bạn ứng tuyển việc làm qua nền tảng của chúng tôi, đơn ứng tuyển
             và thông tin hồ sơ liên quan sẽ được chia sẻ với nhà tuyển dụng.
@@ -38,7 +43,9 @@ const TermsServices = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">4. Hành vi bị cấm</h2>
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
+            4. Hành vi bị cấm
+          </h2>
           <p>
             Bạn đồng ý không sử dụng dịch vụ của chúng tôi cho bất kỳ mục đích
             trái pháp luật nào, đăng thông tin sai lệch hoặc gây hiểu lầm, spam
@@ -48,7 +55,7 @@ const TermsServices = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
             5. Giới hạn trách nhiệm
           </h2>
           <p>
@@ -59,7 +66,9 @@ const TermsServices = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">6. Thay đổi điều khoản</h2>
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
+            6. Thay đổi điều khoản
+          </h2>
           <p>
             Chúng tôi bảo lưu quyền sửa đổi các điều khoản này bất cứ lúc nào.
             Chúng tôi sẽ thông báo cho người dùng về bất kỳ thay đổi quan trọng

@@ -1,6 +1,7 @@
 import { SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 import JobCard from "../home/JobCard";
@@ -23,11 +24,11 @@ const Jobs = () => {
   });
 
   return (
-    <div className="my-6 sm:my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      {/* Mobile Filter Toggle */}
+    <div className="mx-auto pt-3 mb-6 sm:mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+      <Breadcrumb items={[{ label: "Việc làm" }]} />
       <div className="lg:hidden mb-4">
         <Button
-          className="w-full flex items-center justify-center gap-2"
+          className="flex justify-center items-center gap-2 w-full"
           onClick={() => setShowFilter(!showFilter)}
           variant="outline"
         >
@@ -45,8 +46,7 @@ const Jobs = () => {
         </Button>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-5">
-        {/* Filter Sidebar */}
+      <div className="flex lg:flex-row flex-col gap-5">
         <div
           className={`${
             showFilter ? "block" : "hidden"
@@ -55,19 +55,20 @@ const Jobs = () => {
           <FilterCard />
         </div>
 
-        {/* Job List */}
         <div className="flex-1">
-          <h1 className="text-lg sm:text-xl font-bold mb-5">
+          <h1 className="mb-5 font-bold text-lg sm:text-xl">
             Kết quả tìm kiếm ({filteredJobs.length})
           </h1>
 
-          <div className="overflow-y-auto max-h-[80vh]">
+          <div className="max-h-[80vh] overflow-y-auto">
             {filteredJobs.length <= 0 ? (
-              <div className="text-center py-20">
-                <p className="text-gray-500 text-lg">Không tìm thấy việc làm</p>
+              <div className="py-20 text-center">
+                <p className="text-muted-foreground text-lg">
+                  Không tìm thấy việc làm
+                </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
                 {filteredJobs.map((job, index) => (
                   <JobCard index={index} job={job} key={job._id} />
                 ))}

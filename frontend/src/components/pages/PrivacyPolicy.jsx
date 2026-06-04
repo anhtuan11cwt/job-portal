@@ -1,11 +1,14 @@
+import Breadcrumb from "@/components/shared/Breadcrumb";
+
 const PrivacyPolicy = () => {
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <h1 className="text-3xl font-bold mb-6">Chính sách bảo mật</h1>
+    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-3xl">
+      <Breadcrumb items={[{ label: "Chính sách bảo mật" }]} />
+      <h1 className="mb-6 font-bold text-3xl">Chính sách bảo mật</h1>
 
-      <div className="space-y-6 text-gray-700 leading-relaxed">
+      <div className="space-y-6 text-muted-foreground leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold mb-3">
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
             1. Thông tin chúng tôi thu thập
           </h2>
           <p>
@@ -17,7 +20,7 @@ const PrivacyPolicy = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
             2. Cách chúng tôi sử dụng thông tin của bạn
           </h2>
           <p>
@@ -29,7 +32,9 @@ const PrivacyPolicy = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">3. Chia sẻ thông tin</h2>
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
+            3. Chia sẻ thông tin
+          </h2>
           <p>
             Chúng tôi có thể chia sẻ thông tin của bạn với nhà tuyển dụng khi
             bạn ứng tuyển qua nền tảng của chúng tôi. Chúng tôi không bán thông
@@ -39,7 +44,9 @@ const PrivacyPolicy = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">4. Bảo mật dữ liệu</h2>
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
+            4. Bảo mật dữ liệu
+          </h2>
           <p>
             Chúng tôi áp dụng các biện pháp kỹ thuật và tổ chức phù hợp để bảo
             vệ thông tin cá nhân của bạn khỏi việc truy cập, thay đổi, tiết lộ
@@ -48,7 +55,9 @@ const PrivacyPolicy = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">5. Quyền của bạn</h2>
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
+            5. Quyền của bạn
+          </h2>
           <p>
             Bạn có quyền truy cập, chỉnh sửa hoặc xóa thông tin cá nhân của mình
             bất cứ lúc nào. Bạn có thể cập nhật thông tin hồ sơ trong cài đặt
@@ -57,7 +66,7 @@ const PrivacyPolicy = () => {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">
+          <h2 className="mb-3 font-semibold text-foreground text-xl">
             6. Liên hệ với chúng tôi
           </h2>
           <p>

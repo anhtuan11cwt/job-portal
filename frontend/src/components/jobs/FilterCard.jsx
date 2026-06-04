@@ -44,9 +44,9 @@ const FilterCard = () => {
   };
 
   return (
-    <div className="w-full bg-white p-4 rounded-md border border-gray-200">
+    <div className="w-full bg-card p-4 rounded-2xl border border-border">
       <h2 className="font-bold text-lg">Lọc việc làm</h2>
-      <hr className="mt-3 mb-4" />
+      <hr className="mt-3 mb-4 border-border" />
 
       <RadioGroup onValueChange={changeHandler}>
         {filterData.map((data) => (

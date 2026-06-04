@@ -15,11 +15,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import { formatDate } from "@/utils/formatDate";
 
 const statusColors = {
   accepted: "bg-green-100 text-green-700",
-  pending: "bg-gray-100 text-gray-700",
+  pending: "bg-muted text-muted-foreground",
   rejected: "bg-red-100 text-red-700",
 };
 
@@ -40,7 +41,7 @@ const ActionPopover = ({ appId, statusHandler }) => {
   return (
     <Popover onOpenChange={setOpen} open={open}>
       <PopoverTrigger asChild>
-        <Button size="sm" variant="outline">
+        <Button aria-label="Thay đổi trạng thái" size="sm" variant="outline">
           <MoreHorizontal className="size-4" />
         </Button>
       </PopoverTrigger>
@@ -67,33 +68,37 @@ const ActionPopover = ({ appId, statusHandler }) => {
 const ApplicantsTable = ({ applicants, statusHandler }) => {
   if (applicants.length === 0) {
     return (
-      <p className="text-center text-gray-500 mt-10">Chưa có ứng viên nào</p>
+      <p className="text-center text-muted-foreground mt-10">
+        Chưa có ứng viên nào
+      </p>
     );
   }
 
   return (
     <>
-      {/* Mobile Card View */}
       <div className="sm:hidden space-y-3">
         {applicants.map((app) => (
-          <div className="border rounded-lg p-3" key={app._id}>
+          <div className="border border-border rounded-xl p-3" key={app._id}>
             <div className="flex justify-between items-start mb-2">
               <div>
                 <p className="font-medium text-sm">
                   {app.applicant?.fullName || "N/A"}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-muted-foreground">
                   {app.applicant?.email || "N/A"}
                 </p>
               </div>
               <Badge
-                className={`${statusColors[app.status] || statusColors.pending} text-xs`}
+                className={cn(
+                  statusColors[app.status] || statusColors.pending,
+                  "text-xs",
+                )}
               >
                 {statusLabels[app.status] || app.status}
               </Badge>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground/60">
                 {formatDate(app.createdAt)}
               </p>
               {app.status === "pending" && (
@@ -104,7 +109,6 @@ const ApplicantsTable = ({ applicants, statusHandler }) => {
         ))}
       </div>
 
-      {/* Desktop Table View */}
       <div className="hidden sm:block">
         <Table>
           <TableHeader>
@@ -128,7 +132,9 @@ const ApplicantsTable = ({ applicants, statusHandler }) => {
                 <TableCell>{formatDate(app.createdAt)}</TableCell>
                 <TableCell className="text-center">
                   <Badge
-                    className={`${statusColors[app.status] || statusColors.pending}`}
+                    className={cn(
+                      statusColors[app.status] || statusColors.pending,
+                    )}
                   >
                     {statusLabels[app.status] || app.status}
                   </Badge>

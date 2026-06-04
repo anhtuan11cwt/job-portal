@@ -67,7 +67,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-2 sm:px-4 lg:px-6">
         <Link className="shrink-0" to="/">
           <h1 className="text-2xl font-bold tracking-tight">
             Cổng <span className="text-brand-accent">việc làm</span>

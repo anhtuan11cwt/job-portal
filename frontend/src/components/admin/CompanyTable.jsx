@@ -24,7 +24,9 @@ const CompanyTable = ({ filterByName }) => {
   return (
     <>
       {filteredCompanies.length <= 0 ? (
-        <p className="text-center text-gray-500 mt-10">Chưa có công ty nào</p>
+        <p className="text-center text-muted-foreground mt-10">
+          Chưa có công ty nào
+        </p>
       ) : (
         <Table>
           <TableHeader>
@@ -50,6 +52,7 @@ const CompanyTable = ({ filterByName }) => {
                 <TableCell>{formatDate(company.createdAt)}</TableCell>
                 <TableCell className="text-right">
                   <Button
+                    aria-label={`Chỉnh sửa ${company.name}`}
                     onClick={() => navigate(`/admin/companies/${company._id}`)}
                     size="sm"
                     variant="outline"

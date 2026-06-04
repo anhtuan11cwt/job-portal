@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { APPLICATION_API_ENDPOINT } from "@/utils/constant";
 import ApplicantsTable from "./ApplicantsTable";
 
@@ -59,15 +60,21 @@ const Applicants = () => {
 
   if (loading) {
     return (
-      <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-        <p className="text-center text-gray-500">Đang tải...</p>
+      <div className="mx-auto my-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+        <p className="text-muted-foreground text-center">Đang tải...</p>
       </div>
     );
   }
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <h1 className="font-bold text-xl my-5">
+    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+      <Breadcrumb
+        items={[
+          { href: "/admin/jobs", label: "Việc làm" },
+          { label: "Ứng viên" },
+        ]}
+      />
+      <h1 className="my-5 font-bold text-xl">
         Danh sách ứng viên ({applicants.length})
       </h1>
       <ApplicantsTable applicants={applicants} statusHandler={statusHandler} />
