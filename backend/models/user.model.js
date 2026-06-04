@@ -36,11 +36,6 @@ const userSchema = new mongoose.Schema(
       required: true,
       type: String,
     },
-    taxCode: {
-      required: true,
-      type: String,
-      unique: true,
-    },
   },
   { timestamps: true },
 );

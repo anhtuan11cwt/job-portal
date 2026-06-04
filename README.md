@@ -211,7 +211,6 @@ SunfireSensei-job-portal/
 | `phoneNumber` | String            | required, unique                       |
 | `profile`     | Object            | `{ bio, company (ref Company), profilePhoto, skills[] }` |
 | `role`        | String (enum)     | required — `"student"` hoặc `"recruiter"` |
-| `taxCode`     | String            | required, unique                       |
 | `timestamps`  | -                 | createdAt, updatedAt                   |
 
 ### Company (`companies` collection)
@@ -276,7 +275,7 @@ Base URL: `/api/v1`
 | GET    | `/user/logout`              | ❌       | Đăng xuất (xóa cookie)                      |
 | PUT    | `/user/profile/update`      | ✅ JWT   | Cập nhật hồ sơ (fullName, email, phone, bio, skills, profilePhoto) |
 
-**Yêu cầu đăng ký:** `fullName`, `email`, `phoneNumber`, `password`, `role`, `taxCode`, `cccd`  
+**Yêu cầu đăng ký:** `fullName`, `email`, `phoneNumber`, `password`, `role`, `cccd`  
 **Yêu cầu đăng nhập:** `email`, `password`, `role`, `cccd`
 
 ### Company

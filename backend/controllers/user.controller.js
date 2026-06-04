@@ -4,24 +4,15 @@ import User from "../models/user.model.js";
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, phoneNumber, password, role, taxCode, cccd } =
-      req.body;
-    if (
-      !fullName ||
-      !email ||
-      !phoneNumber ||
-      !password ||
-      !role ||
-      !taxCode ||
-      !cccd
-    ) {
+    const { fullName, email, phoneNumber, password, role, cccd } = req.body;
+    if (!fullName || !email || !phoneNumber || !password || !role || !cccd) {
       return res.status(400).json({
         message: "Vui lòng điền đầy đủ thông tin",
         success: false,
       });
     }
     const existingUser = await User.findOne({
-      $or: [{ email }, { phoneNumber }, { cccd }, { taxCode }],
+      $or: [{ email }, { phoneNumber }, { cccd }],
     });
     if (existingUser) {
       if (existingUser.email === email) {
@@ -42,12 +33,6 @@ export const register = async (req, res) => {
           success: false,
         });
       }
-      if (existingUser.taxCode === taxCode) {
-        return res.status(400).json({
-          message: "Mã số thuế đã được đăng ký",
-          success: false,
-        });
-      }
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const profilePhoto = req.file?.path || "";
@@ -59,7 +44,6 @@ export const register = async (req, res) => {
       phoneNumber,
       profile: { profilePhoto },
       role,
-      taxCode,
     });
     return res.status(201).json({
       message: "Tạo tài khoản thành công",
@@ -121,7 +105,6 @@ export const login = async (req, res) => {
       phoneNumber: user.phoneNumber,
       profile: user.profile,
       role: user.role,
-      taxCode: user.taxCode,
     };
     return res
       .status(200)
@@ -212,7 +195,6 @@ export const updateProfile = async (req, res) => {
       phoneNumber: user.phoneNumber,
       profile: user.profile,
       role: user.role,
-      taxCode: user.taxCode,
     };
     return res.status(200).json({
       message: "Cập nhật hồ sơ thành công",
