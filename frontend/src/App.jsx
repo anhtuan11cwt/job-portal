@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/shared/Footer";
 import Navbar from "./components/shared/Navbar";
@@ -21,9 +21,17 @@ const AdminJobs = lazy(() => import("./components/admin/AdminJobs"));
 const PostJob = lazy(() => import("./components/admin/PostJob"));
 const Applicants = lazy(() => import("./components/admin/Applicants"));
 
+function ScrollToTop() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  return null;
+}
+
 function App() {
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
+      <ScrollToTop />
       <Navbar />
       <main className="flex-1">
         <Suspense fallback={<div className="p-6 text-center">Đang tải...</div>}>
