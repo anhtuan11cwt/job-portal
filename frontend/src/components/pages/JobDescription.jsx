@@ -72,14 +72,14 @@ const JobDescription = () => {
 
   if (!singleJob) {
     return (
-      <div className="mx-auto my-10 px-2 sm:px-4 lg:px-6 max-w-7xl text-center">
+      <div className="my-10 px-6 md:px-16 lg:px-24 xl:px-32 text-center">
         <p className="text-muted-foreground">Đang tải...</p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto pt-3 mb-6 sm:mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+    <div className="mb-6 sm:mb-10 px-6 md:px-16 lg:px-24 xl:px-32 pt-3">
       <Breadcrumb
         items={[
           { href: "/jobs", label: "Việc làm" },

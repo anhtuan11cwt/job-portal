@@ -39,7 +39,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="mx-auto my-6 sm:my-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+    <div className="my-6 sm:my-10 px-6 md:px-16 lg:px-24 xl:px-32">
       <div className="bg-card p-4 sm:p-6 border border-border rounded-2xl">
         <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4">
           <div className="flex items-center gap-4 sm:gap-5">

@@ -66,10 +66,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-2 sm:px-4 lg:px-6">
+    <header className="top-0 z-50 sticky bg-background/95 backdrop-blur-sm border-border border-b">
+      <div className="flex justify-between items-center px-6 md:px-16 lg:px-24 xl:px-32 h-16">
         <Link className="shrink-0" to="/">
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="font-bold text-2xl tracking-tight">
             Cổng <span className="text-brand-accent">việc làm</span>
           </h1>
         </Link>
@@ -84,7 +84,7 @@ const Navbar = () => {
                 <Link
                   aria-current={isActive(link.path) ? "page" : undefined}
                   className={cn(
-                    "rounded-4xl px-3 py-2 text-sm transition-colors hover:bg-muted",
+                    "hover:bg-muted px-3 py-2 rounded-4xl text-sm transition-colors",
                     isActive(link.path)
                       ? "bg-primary/10 text-primary"
                       : "text-muted-foreground",
@@ -119,7 +119,7 @@ const Navbar = () => {
                       alt={user?.fullName}
                       src={user?.profile?.profilePhoto}
                     />
-                    <AvatarFallback className="bg-primary/10 text-primary text-xs font-medium">
+                    <AvatarFallback className="bg-primary/10 font-medium text-primary text-xs">
                       {getUserInitials(user?.fullName)}
                     </AvatarFallback>
                   </Avatar>
@@ -132,24 +132,24 @@ const Navbar = () => {
                       alt={user?.fullName}
                       src={user?.profile?.profilePhoto}
                     />
-                    <AvatarFallback className="bg-primary/10 text-primary text-xs font-medium">
+                    <AvatarFallback className="bg-primary/10 font-medium text-primary text-xs">
                       {getUserInitials(user?.fullName)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold">
+                    <p className="font-semibold text-sm truncate">
                       {user?.fullName}
                     </p>
-                    <p className="truncate text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs truncate">
                       {user?.profile?.bio || user?.email}
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 space-y-1 border-t border-border pt-3">
+                <div className="space-y-1 mt-3 pt-3 border-border border-t">
                   {!isRecruiter && (
                     <Button
                       asChild
-                      className="w-full justify-start gap-2"
+                      className="justify-start gap-2 w-full"
                       variant="ghost"
                     >
                       <Link to="/profile">
@@ -159,7 +159,7 @@ const Navbar = () => {
                     </Button>
                   )}
                   <Button
-                    className="w-full justify-start gap-2 text-destructive hover:text-destructive"
+                    className="justify-start gap-2 w-full text-destructive hover:text-destructive"
                     onClick={logoutHandler}
                     variant="ghost"
                   >
@@ -175,7 +175,7 @@ const Navbar = () => {
         <button
           aria-expanded={isOpen}
           aria-label={isOpen ? "Đóng menu" : "Mở menu"}
-          className="rounded-4xl p-2 text-muted-foreground hover:bg-muted md:hidden"
+          className="md:hidden hover:bg-muted p-2 rounded-4xl text-muted-foreground"
           onClick={() => setIsOpen(!isOpen)}
           type="button"
         >
@@ -184,15 +184,15 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="border-t border-border bg-background md:hidden">
-          <nav className="px-4 py-4">
+        <div className="md:hidden bg-background border-border border-t">
+          <nav className="px-6 py-4">
             <ul className="flex flex-col gap-1 font-medium">
               {navLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     aria-current={isActive(link.path) ? "page" : undefined}
                     className={cn(
-                      "block rounded-4xl px-3 py-2 text-sm transition-colors hover:bg-muted",
+                      "block hover:bg-muted px-3 py-2 rounded-4xl text-sm transition-colors",
                       isActive(link.path)
                         ? "bg-primary/10 text-primary"
                         : "text-muted-foreground",
@@ -221,20 +221,20 @@ const Navbar = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="space-y-3 border-t border-border pt-3">
+                <div className="space-y-3 pt-3 border-border border-t">
                   <div className="flex items-center gap-3">
                     <Avatar className="size-9">
                       <AvatarImage
                         alt={user?.fullName}
                         src={user?.profile?.profilePhoto}
                       />
-                      <AvatarFallback className="bg-primary/10 text-primary text-xs font-medium">
+                      <AvatarFallback className="bg-primary/10 font-medium text-primary text-xs">
                         {getUserInitials(user?.fullName)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-semibold">{user?.fullName}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="font-semibold text-sm">{user?.fullName}</p>
+                      <p className="text-muted-foreground text-xs">
                         {user?.email}
                       </p>
                     </div>

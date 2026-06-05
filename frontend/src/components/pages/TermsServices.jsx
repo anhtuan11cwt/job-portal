@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/shared/Breadcrumb";
 
 const TermsServices = () => {
   return (
-    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-3xl">
+    <div className="mx-auto mb-10 px-6 md:px-16 lg:px-24 xl:px-32 pt-3 max-w-3xl">
       <Breadcrumb items={[{ label: "Điều khoản dịch vụ" }]} />
       <h1 className="mb-6 font-bold text-3xl">Điều khoản dịch vụ</h1>
 

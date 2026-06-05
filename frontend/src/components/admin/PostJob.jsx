@@ -80,7 +80,7 @@ const PostJob = () => {
   );
 
   return (
-    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+    <div className="mb-10 px-6 md:px-16 lg:px-24 xl:px-32 pt-3">
       <Breadcrumb
         items={[
           { href: "/admin/jobs", label: "Việc làm" },
@@ -88,7 +88,7 @@ const PostJob = () => {
         ]}
       />
       <form
-        className="bg-card shadow-sm p-6 sm:p-8 border border-border rounded-2xl mt-5"
+        className="bg-card shadow-sm mt-5 p-6 sm:p-8 border border-border rounded-2xl"
         onSubmit={submitHandler}
       >
         <h1 className="mb-6 font-bold text-xl">Đăng tin tuyển dụng</h1>

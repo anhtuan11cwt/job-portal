@@ -38,19 +38,19 @@ const CompanyCreate = () => {
   };
 
   return (
-    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+    <div className="mb-10 px-6 md:px-16 lg:px-24 xl:px-32 pt-3">
       <Breadcrumb
         items={[
           { href: "/admin/companies", label: "Công ty" },
           { label: "Thêm công ty" },
         ]}
       />
-      <form className="bg-card shadow-sm p-6 sm:p-8 border border-border rounded-2xl mt-5">
+      <form className="bg-card shadow-sm mt-5 p-6 sm:p-8 border border-border rounded-2xl">
         <h1 className="mb-5 font-bold text-xl">Tên công ty của bạn</h1>
         <p className="mb-5 text-muted-foreground">
           Bạn có thể thay đổi tên công ty sau này.
         </p>
-        <div className="max-w-xl mb-4">
+        <div className="mb-4 max-w-xl">
           <Label htmlFor="companyName">Tên công ty</Label>
           <Input
             className="mt-2"

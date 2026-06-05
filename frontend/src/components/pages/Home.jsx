@@ -18,7 +18,7 @@ const Home = () => {
   }, [user, navigate]);
 
   return (
-    <div className="mx-auto px-2 sm:px-4 lg:px-6 max-w-7xl">
+    <div className="px-6 md:px-16 lg:px-24 xl:px-32">
       <Header />
       <Category />
       <LatestJobs />

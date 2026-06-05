@@ -60,14 +60,14 @@ const Applicants = () => {
 
   if (loading) {
     return (
-      <div className="mx-auto my-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+      <div className="my-10 px-6 md:px-16 lg:px-24 xl:px-32">
         <p className="text-muted-foreground text-center">Đang tải...</p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+    <div className="mb-10 px-6 md:px-16 lg:px-24 xl:px-32 pt-3">
       <Breadcrumb
         items={[
           { href: "/admin/jobs", label: "Việc làm" },

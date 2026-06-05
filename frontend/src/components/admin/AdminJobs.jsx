@@ -12,7 +12,7 @@ const AdminJobs = () => {
   const [filterByTitle, setFilterByTitle] = useState("");
 
   return (
-    <div className="mx-auto pt-3 mb-10 px-2 sm:px-4 lg:px-6 max-w-7xl">
+    <div className="mb-10 px-6 md:px-16 lg:px-24 xl:px-32 pt-3">
       <Breadcrumb items={[{ label: "Việc làm" }]} />
       <div className="flex justify-between items-center my-5">
         <Input
